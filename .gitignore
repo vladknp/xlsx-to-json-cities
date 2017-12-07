@@ -1,0 +1,11 @@
+# npm packages
+node_modules
+
+# VS Code config
+.vscode
+
+# Build project path
+Build
+
+# Temporary project files
+dist
