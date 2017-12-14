@@ -1,7 +1,7 @@
 const convertCities = require('./module/convertCities');
 
 
-const paths = [ './app/media/all_shops_uk', './app/media/all_shops_ru' ];
+const srcPaths = [ './app/media/all_shops_uk', './app/media/all_shops_ru' ];
 const dstPath = './dist/';
 
 const OPTIONS_ROW = {
@@ -10,4 +10,5 @@ const OPTIONS_ROW = {
   omitEmtpyFields: true,
 };
 
-convertCities(paths, dstPath, OPTIONS_ROW);
+convertCities(srcPaths, dstPath, OPTIONS_ROW);
+
