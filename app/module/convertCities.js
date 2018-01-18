@@ -21,7 +21,6 @@ module.exports = function convertCities (paths, dst, options) {
   runConvert(paths);
 
   function runConvert (paths) {
-    console.log('function');
     const SRC = paths + '.xlsx';
     const DST = dst + path.basename(paths) + '.json';
     
@@ -39,7 +38,7 @@ module.exports = function convertCities (paths, dst, options) {
         if (err)
           throw err;
 
-        console.log('It\'s saved!', DST);
+        console.log('It\'s file saved!', DST);
       });
     });
   };
