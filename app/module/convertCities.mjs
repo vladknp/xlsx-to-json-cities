@@ -1,6 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const convertExcel = require('excel-as-json').processFile;
+import fs from 'fs';
+import util from 'util';
+import excel_as_json from 'excel-as-json';
+
+
+const convertExcel = excel_as_json.processFile;
 
 
 /* Need structure JSON files
@@ -11,38 +14,17 @@ const convertExcel = require('excel-as-json').processFile;
     },
   ]
  */
-module.exports = function convertCities (paths, dst, options) {  
-  if (Array.isArray(paths)) {
-    paths.forEach(runConvert);
+export default async function convertCities (input, output, options) {
+  const convert = util.promisify(convertExcel)
 
-    return;
+  async function run () {
+    const exlsRes = await convert(input, null, options)
+    return exlsRes /* return :array */
   };
   
-  runConvert(paths);
-
-  function runConvert (paths) {
-    const SRC = paths + '.xlsx';
-    const DST = dst + path.basename(paths) + '.json';
-    
-    convertExcel(SRC, null, options, (err, data) => {
-      if (err)
-        console.log(`JSON conversion failure: ${err}`);
-
-      const objectCities = data.reduce(reducerCO, {});
-
-      const finishStructure = makeFinishStructure(objectCities);
-
-      const resultJSON = JSON.stringify(finishStructure);
-      
-      fs.writeFile(DST, resultJSON, (err) => {
-        if (err)
-          throw err;
-
-        console.log('It\'s file saved!', DST);
-      });
-    });
-  };
+  return await run();
 };
+
 
 /* Функция создает временную JSON структуру ключ которого город
   {
@@ -87,7 +69,7 @@ function reducerCO(previous, current) {
 function makeFinishStructure(objCities) {
   const arr = [];
   
-  for (city in objCities) {
+  for (const city in objCities) {
     arr.push(objCities[city]);
   };
 
