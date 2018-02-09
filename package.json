@@ -2,16 +2,22 @@
   "name": "xls_to_json",
   "version": "0.0.1",
   "description": "Convert xls file to json file",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch app/**/*.*",
+    "dev": "nodemon --config ./config/.nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemone": "node_modules/.bin/nodemon"
   },
   "author": "Vladislav Nazarchuk",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.4",
     "excel-as-json": "^2.0.1",
+    "express": "^4.16.2",
+    "multer": "^1.3.0",
     "nodemon": "^1.12.5"
+  },
+  "devDependencies": {
+    "@std/esm": "^0.20.0"
   }
 }
