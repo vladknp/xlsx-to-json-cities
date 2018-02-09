@@ -4,7 +4,7 @@ import util from 'util';
 import multer from 'multer';
 import convertCities from '../module/convertCities';
 
-const upload = multer().array('avatar', 1);
+const upload = multer().array('avatar', 12);
 
 const CONFIG = {
   baseDir: './dist',
