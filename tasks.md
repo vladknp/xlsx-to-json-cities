@@ -7,5 +7,8 @@
 ### refactoring
 - async/await (used util.promisify)
 
+### features
+- arhiving files
+
 ### System virtualisation
 - Docker
