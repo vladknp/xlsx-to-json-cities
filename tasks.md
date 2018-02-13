@@ -5,9 +5,10 @@
 - prettier
 
 ### refactoring
-- async/await (used util.promisify)
++ async/await (used util.promisify)
 
 ### features
+- HTML response
 - arhiving files
 
 ### System virtualisation
