@@ -4,7 +4,7 @@ import excel_as_json from 'excel-as-json';
 
 
 const convertExcel = excel_as_json.processFile;
-
+const convert = util.promisify(convertExcel);
 
 /* Need structure JSON files
   [
@@ -15,11 +15,13 @@ const convertExcel = excel_as_json.processFile;
   ]
  */
 export default async function convertCities (input, output, options) {
-  const convert = util.promisify(convertExcel)
-
   async function run () {
     const exlsRes = await convert(input, null, options)
-    return exlsRes /* return :array */
+    try {
+      return exlsRes /* return :array */
+    } catch (error) {
+      throw new Error(error)
+    }
   };
   
   return await run();
