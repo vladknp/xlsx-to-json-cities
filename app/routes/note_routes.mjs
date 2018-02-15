@@ -9,6 +9,7 @@ import partsFile from '../module/partsFile';
 const CONFIG = {
   baseDir: './dist',
   fileLimit: 12,
+  port: '8083'
 };
 
 const dstPath = `${CONFIG.baseDir}`;
@@ -27,11 +28,11 @@ export default function(app, db) {
       sheet:'1',
       isColOriented: false,
       omitEmtpyFields: true,
-    }
+    };
     
     upload(req, res, (err) => {
-      if (err) {
-        res.send({err: `Limit of foto ${CONFIG.fileLimit}`})
+      if (err || req.files.length < 1) {
+        res.send({err: `Limit of file from 1 to ${CONFIG.fileLimit}`})
         return
       }
     
@@ -45,9 +46,9 @@ export default function(app, db) {
       const result = req.files.map(async file => {
         const originalname = file.originalname;
         const buf = Buffer.from(file.buffer, 'ascii');
-        const { nameFile, extFile } = partsFile(originalname);
+        const { _nameFile, _extFile } = partsFile(originalname);
         const pathFile = `${CONFIG.baseDir}/${originalname}`;
-        const jsonFile = `${dstPath}/${nameFile}.json`;
+        const jsonFile = `${dstPath}/${_nameFile}.json`;
         
         async function run () {
           let cities = []
@@ -61,7 +62,7 @@ export default function(app, db) {
             throw new Error(error);
           }
 
-          return [nameFile, cities];
+          return [_nameFile, cities];
         };
 
         return await run();
@@ -69,10 +70,13 @@ export default function(app, db) {
 
       Promise.all([...result])
         .then((data) => {
-          if (!data[0]) return
-          res.send('<div><a href="#">Download zip</a></div>');
+          const id = Date.now();
+
+          db.push([id, data]);
+          res.send(String(id));
+          // res.send(`<div><a href="http://localhost:${CONFIG.port}/xlsx/download/${id}">Download zip</a></div>`);
         })
-        .catch(err => {console.log(err)})  
+        .catch(err => {console.log('catch', err)})  
     })
   })
 };
