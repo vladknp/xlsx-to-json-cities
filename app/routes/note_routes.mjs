@@ -79,4 +79,12 @@ export default function(app, db) {
         .catch(err => {console.log('catch', err)})  
     })
   })
+
+  app.get('/xlsx/download/:id', (req, res) => {
+    const id = req.params.id;
+    const result = db.find(file => String(file[0]) === String(id));
+    console.log(id, result)
+
+    res.send(result)
+  })
 };
