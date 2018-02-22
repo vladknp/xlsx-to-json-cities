@@ -121,7 +121,6 @@ export default function(app, db) {
     const id = req.params.id;
     const result = db.find(file => String(file[0]) === String(id));
 
-    res.download(`dist/out/${id}`)
-    /* res.send(result) */
+    res.download(`dist/out/${id}`);
   })
 };

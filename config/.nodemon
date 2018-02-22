@@ -4,6 +4,7 @@
     "app/**/*.*"
   ],
   "execMap": {
-    "js": "node --inspect"
+    "js": "node --inspect",
+    "js": "node"
   }
 }

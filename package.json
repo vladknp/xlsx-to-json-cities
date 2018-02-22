@@ -12,6 +12,7 @@
   "author": "Vladislav Nazarchuk",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^2.1.1",
     "cors": "^2.8.4",
     "excel-as-json": "^2.0.1",
     "express": "^4.16.2",

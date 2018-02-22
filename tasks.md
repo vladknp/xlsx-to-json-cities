@@ -1,10 +1,11 @@
 ### npm:
 - husky
 - lint-staged
-- eslit
-- prettier
+- eslit https://flaviocopes.com/vscode-react-setup/
+- prettier https://flaviocopes.com/vscode-react-setup/
 
 ### refactoring
+- type chacking
 + async/await (used util.promisify)
 
 ### features
@@ -13,3 +14,12 @@
 
 ### System virtualisation
 - Docker
+
+### 
+
+# Functional
+- Download Zip - загрузка json файлы
+- ProstgreSQL
+- #System virtualisation
+-- Docker 
++ Upload xlsx files
