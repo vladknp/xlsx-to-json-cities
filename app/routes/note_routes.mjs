@@ -6,6 +6,9 @@ import convertCities from '../module/convertCities';
 import isXlsx from '../module/isXlsx';
 import partsFile from '../module/partsFile';
 
+import archiver from 'archiver';
+
+
 const CONFIG = {
   baseDir: './dist',
   fileLimit: 12,
@@ -45,7 +48,7 @@ export default function(app, db) {
       
       const result = req.files.map(async file => {
         const originalname = file.originalname;
-        const buf = Buffer.from(file.buffer, 'ascii');
+        const bufXlsx= Buffer.from(file.buffer, 'ascii');
         const { _nameFile, _extFile } = partsFile(originalname);
         const pathFile = `${CONFIG.baseDir}/${originalname}`;
         const jsonFile = `${dstPath}/${_nameFile}.json`;
@@ -53,7 +56,7 @@ export default function(app, db) {
         async function run () {
           let cities = []
 
-          await writeFilePromisify(pathFile, buf);
+          await writeFilePromisify(pathFile, bufXlsx);
           
           try {
             cities = await convertCities(pathFile, jsonFile, OPTIONS_ROW);
@@ -66,25 +69,59 @@ export default function(app, db) {
         };
 
         return await run();
-      })
+      });
 
       Promise.all([...result])
-        .then((data) => {
+        .then((data) => {          
+          const archive = archiver('zip', {
+            zlib: { level: 9 }
+          });
           const id = Date.now();
+          const options = {
+            res: res,
+            filename: id
+          }
+          
+          data.map(file => {
+            const buf = Buffer.from(JSON.stringify(file));
+            const _filename = filename(file);
+
+            archive.append(buf, { name: _filename });
+          });
+          
+          const response = setHeader(options);
+          
+          archive.pipe(response);
+          archive.finalize((err, byte) => {
+            if (err) {
+              throw new Error('Ошибка')
+            } else {
+              res.addTrailers({'Content-Length': byte});
+              res.end()
+            }
+          });
 
           db.push([id, data]);
-          res.send(String(id));
-          // res.send(`<div><a href="http://localhost:${CONFIG.port}/xlsx/download/${id}">Download zip</a></div>`);
         })
-        .catch(err => {console.log('catch', err)})  
+        .catch(err => {console.log('Error: ', err)});
+        
+      function setHeader ({res, filename}) {
+        res.setHeader("Content-Type", "application/zip");
+        res.attachment(`${filename}.zip`);
+        return res;
+      };
+        
+      function filename (arr) {
+        return arr[0];
+      };
     })
   })
 
   app.get('/xlsx/download/:id', (req, res) => {
     const id = req.params.id;
     const result = db.find(file => String(file[0]) === String(id));
-    console.log(id, result)
 
-    res.send(result)
+    res.download(`dist/out/${id}`)
+    /* res.send(result) */
   })
 };
