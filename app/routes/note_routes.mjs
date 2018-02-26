@@ -23,7 +23,7 @@ if(!fs.existsSync(dstPath)) fs.mkdirSync(dstPath);
 
 export default function(app, db) {
   // set default cors: no-cors
-  app.use(cors());
+  app.use(cors({origin: '*'}));
 
   // Получение всех записей
   app.post('/xlsx/convert', (req, res) => {
