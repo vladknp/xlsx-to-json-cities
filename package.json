@@ -12,6 +12,7 @@
   "author": "Vladislav Nazarchuk",
   "license": "ISC",
   "dependencies": {
+    "@std/esm": "^0.23.1",
     "archiver": "^2.1.1",
     "cors": "^2.8.4",
     "excel-as-json": "^2.0.1",
@@ -19,7 +20,5 @@
     "multer": "^1.3.0",
     "nodemon": "^1.12.5"
   },
-  "devDependencies": {
-    "@std/esm": "^0.20.0"
-  }
+  "devDependencies": {}
 }
