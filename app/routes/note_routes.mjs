@@ -22,7 +22,7 @@ const writeFilePromisify =  util.promisify(fs.writeFile);
 if(!fs.existsSync(dstPath)) fs.mkdirSync(dstPath);
 
 export default function(app, db) {
-// set default cors: no-cors;
+  // set default cors: no-cors;
   app.use(cors());
 
   // Получение всех записей
