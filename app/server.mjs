@@ -5,7 +5,7 @@ import routes from './routes';
 const app = express();
 let db = [];
 
-const port = 8083;
+const port = process.env.PORT || 8083;
 // const port = 3000;
 // const hostname =  '/api';
 
