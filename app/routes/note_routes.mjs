@@ -6,16 +6,13 @@ import archiver from 'archiver';
 import convertCities from '../module/convertCities';
 import isXlsx from '../module/isXlsx';
 import partsFile from '../module/partsFile';
+import env from '../../config/env';
 
 
-const CONFIG = {
-  baseDir: './dist',
-  fileLimit: 12,
-  port: '8083'
-};
+const ENV = env();
 
-const dstPath = `${CONFIG.baseDir}`;
-const upload = multer().array('avatar', CONFIG.fileLimit);
+const dstPath = ENV.DIST_DIR;
+const upload = multer().array('avatar', ENV.FILE_LIMIT);
 const writeFilePromisify =  util.promisify(fs.writeFile);
 
 if(!fs.existsSync(dstPath)) fs.mkdirSync(dstPath);
@@ -34,7 +31,7 @@ export default function(app, db) {
     
     upload(req, res, (err) => {
       if (err || req.files.length < 1) {
-        res.send({err: `Limit of file from 1 to ${CONFIG.fileLimit}`})
+        res.send({err: `Limit of file from 1 to ${ENV.FILE_LIMIT}`})
         return
       }
     
@@ -49,7 +46,7 @@ export default function(app, db) {
         const originalname = file.originalname;
         const bufXlsx= Buffer.from(file.buffer, 'ascii');
         const { _nameFile, _extFile } = partsFile(originalname);
-        const pathFile = `${CONFIG.baseDir}/${originalname}`;
+        const pathFile = `${ENV.DIST_DIR}/${originalname}`;
         const jsonFile = `${dstPath}/${_nameFile}.json`;
         
         async function run () {
