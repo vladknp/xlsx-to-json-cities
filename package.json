@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemone": "node_modules/.bin/nodemon",
     "lint:js": "eslint ./app/**",
-    "lint-staged": "list-staged"
+    "lint-staged": "lint-staged"
   },
   "author": "Vladislav Nazarchuk",
   "license": "ISC",
@@ -29,7 +29,9 @@
     "eslint": "^4.18.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
-    "nodemon": "^1.15.1"
+    "lint-staged": "^7.0.0",
+    "nodemon": "^1.15.1",
+    "pre-commit": "^1.2.2"
   },
   "lint-staged": {
     "*.mjs": "eslint"
