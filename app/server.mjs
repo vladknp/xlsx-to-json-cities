@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import routes from './routes';
 import env from '../config/env';
@@ -9,6 +10,7 @@ const port = ENV.PORT;
 
 let db = [];
 
+app.use(helmet());
 // app.use(bodyParser.urlencoded({extended: true}));
 
 routes(app, db);
