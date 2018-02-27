@@ -34,7 +34,7 @@
     "pre-commit": "^1.2.2"
   },
   "lint-staged": {
-    "*.mjs": "eslint ./**"
+    "*.{js,mjs}": "eslint"
   },
   "pre-commit": "lint-staged",
   "eslintConfig": {
