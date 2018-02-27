@@ -2,11 +2,10 @@ import cors from 'cors';
 import fs from 'fs';
 import util from 'util';
 import multer from 'multer';
+import archiver from 'archiver';
 import convertCities from '../module/convertCities';
 import isXlsx from '../module/isXlsx';
 import partsFile from '../module/partsFile';
-
-import archiver from 'archiver';
 
 
 const CONFIG = {
