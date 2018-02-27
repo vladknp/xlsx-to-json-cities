@@ -1,13 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes';
+import env from '../config/env';
 
 const app = express();
-let db = [];
+const ENV = env();
+const port = ENV.PORT;
 
-const port = process.env.PORT || 8083;
-// const port = 3000;
-// const hostname =  '/api';
+let db = [];
 
 // app.use(bodyParser.urlencoded({extended: true}));
 
