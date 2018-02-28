@@ -8,7 +8,8 @@
     "dev": "nodemon --config ./config/.nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemone": "node_modules/.bin/nodemon",
-    "lint:js": "eslint ./**",
+    "lint:js": "npm run prettier:js && eslint ./**/*.mjs",
+    "prettier:js": "prettier **/*.js **/*.mjs --write",
     "lint-staged": "lint-staged"
   },
   "author": "Vladislav Nazarchuk",
@@ -31,7 +32,8 @@
     "eslint-plugin-import": "^2.9.0",
     "lint-staged": "^7.0.0",
     "nodemon": "^1.15.1",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.11.0"
   },
   "lint-staged": {
     "*.{js,mjs}": "eslint"
@@ -46,5 +48,10 @@
     "env": {
       "node": true
     }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "all"
   }
 }
