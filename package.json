@@ -36,14 +36,14 @@
     "prettier": "^1.11.0"
   },
   "lint-staged": {
-    "*.{js,mjs}": "eslint"
+    "*.{js,mjs}": ["prettier --parser babylon --write", "eslint"]
   },
   "pre-commit": "lint-staged",
   "eslintConfig": {
     "root": true,
     "extends": [
-      "airbnb-base",
-      "prettier"
+      "prettier",
+      "airbnb-base"
     ],
     "env": {
       "node": true
