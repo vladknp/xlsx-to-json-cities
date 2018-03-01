@@ -1,32 +1,8 @@
-import fs from 'fs';
 import util from 'util';
-import excel_as_json from 'excel-as-json';
+import excelAsJson from 'excel-as-json';
 
-
-const convertExcel = excel_as_json.processFile;
+const convertExcel = excelAsJson.processFile;
 const convert = util.promisify(convertExcel);
-
-/* Need structure JSON files
-  [
-    {
-      "town": "Бердичев",
-      "servicesCenters": ["ул. Европейская, 10", "ул. Житомирская 17"]
-    },
-  ]
- */
-export default async function convertCities (input, output, options) {
-  async function run () {
-    const exlsRes = await convert(input, null, options)
-    try {
-      return exlsRes /* return :array */
-    } catch (error) {
-      throw new Error(error)
-    }
-  };
-  
-  return await run();
-};
-
 
 /* Функция создает временную JSON структуру ключ которого город
   {
@@ -41,24 +17,22 @@ function reducerCO(previous, current) {
   const newAddress = current.address;
   const arrAdresses = previous[newTown];
 
-  if ((newTown === undefined || newTown === '')) return previous;
+  // if (newTown === undefined || newTown === '') return previous;
 
   if (arrAdresses === undefined) {
-    previous[newTown] = {
-      "town": "",
-      "serviceCenters": [],
+    return {
+      ...previous,
+      [newTown]: {
+        town: newTown,
+        serviceCenters: [newAddress],
+      },
     };
-
-    previous[newTown].town = newTown;
-    previous[newTown].serviceCenters = [newAddress];
-
-    return previous;
-  };
+  }
 
   arrAdresses.serviceCenters.push(newAddress);
 
   return previous;
-};
+}
 
 /* Функция содает массив обектов с городами
   [
@@ -69,11 +43,30 @@ function reducerCO(previous, current) {
   ]
  */
 function makeFinishStructure(objCities) {
-  const arr = [];
-  
-  for (const city in objCities) {
-    arr.push(objCities[city]);
+  return Object.keys(objCities).map((key) => objCities[key]);
+}
+
+/* Need structure JSON files
+  [
+    {
+      "town": "Бердичев",
+      "servicesCenters": ["ул. Европейская, 10", "ул. Житомирская 17"]
+    },
+  ]
+ */
+export default async function convertCities(input, output, options) {
+  const run = async () => {
+    try {
+      const arrCities = await convert(input, null, options); /* return :array */
+      const objectCities = arrCities
+        .filter((value) => value.town !== (undefined || ''))
+        .reduce(reducerCO, {});
+      return makeFinishStructure(objectCities);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
-  return arr;
-};
+  const result = await run();
+  return result;
+}

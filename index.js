@@ -1,5 +1,4 @@
-'use strict'
-
+/* eslint-disable no-global-assign */
 require('dotenv').config();
 require = require('@std/esm')(module);
 

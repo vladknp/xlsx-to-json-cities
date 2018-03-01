@@ -1,21 +1,23 @@
-import partsFile from '../module/partsFile';
+import partsFile from '../module/partsFile.mjs';
 
-export default function (files, extfile) {
+export default function(files, extfile) {
   const result = [];
 
-  files.map(file => {
+  files.forEach((file) => {
     const matchFile = partsFile(file.originalname);
-    
-    if (matchFile._extFile !== extfile) {
-      result.push({[matchFile._nameFile] : `is extention ${matchFile._extFile}. Needed ${extfile}`});
 
-      return;
-    };
-  })
+    if (matchFile.extFile !== extfile) {
+      result.push({
+        [matchFile.nameFile]: `is extention ${
+          matchFile.extFile
+        }. Needed ${extfile}`,
+      });
+    }
+  });
 
   if (result.length) {
-    return {err: result}
+    return { err: result };
   }
 
-  return {success: true}
+  return { success: true };
 }

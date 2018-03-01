@@ -1,14 +1,14 @@
 import express from 'express';
 import helmet from 'helmet';
-import bodyParser from 'body-parser';
-import routes from './routes';
-import env from '../config/env';
+// import bodyParser from 'body-parser';
+import routes from './routes/index.mjs';
+import env from '../config/env.mjs';
 
 const app = express();
 const ENV = env();
 const port = ENV.PORT;
 
-let db = [];
+const db = [];
 
 app.use(helmet());
 // app.use(bodyParser.urlencoded({extended: true}));
@@ -16,5 +16,5 @@ app.use(helmet());
 routes(app, db);
 
 app.listen(port, () => {
-  console.log('We are live on ' + port);
+  global.console.log(`We are live on ${port}`);
 });
