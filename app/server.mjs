@@ -16,7 +16,5 @@ app.use(helmet());
 routes(app, db);
 
 app.listen(port, () => {
-  global.console.log(
-    `We are live on ${port}, NODE_ENV: ${process.env.NODE_ENV}`,
-  );
+  global.console.log(`We are live on ${port}`);
 });
