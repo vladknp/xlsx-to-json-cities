@@ -41,17 +41,21 @@
   "pre-commit": "lint-staged",
   "eslintConfig": {
     "root": true,
-    "extends": [
-      "prettier",
-      "airbnb-base"
-    ],
+    "extends": ["prettier", "airbnb-base"],
     "env": {
       "node": true
+    },
+    "rules": {
+      "space-before-function-paren": 0,
+      "arrow-parens": ["error", "always"]
     }
   },
+  "eslintIgnore": ["./app/media"],
   "prettier": {
     "singleQuote": true,
     "semi": true,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "prettier.bracketSpacing": true,
+    "arrowParens": "always"
   }
 }
