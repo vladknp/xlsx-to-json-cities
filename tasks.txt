@@ -1,8 +1,10 @@
 ### npm:
-- husky
-- lint-staged
-- eslit https://flaviocopes.com/vscode-react-setup/
-- prettier https://flaviocopes.com/vscode-react-setup/
+- husky or pre-commit
+
++ pre-commit
++ lint-staged
++ eslit https://flaviocopes.com/vscode-react-setup/
++ prettier https://flaviocopes.com/vscode-react-setup/
 
 ### refactoring
 - type chacking
@@ -10,7 +12,7 @@
 
 ### features
 - HTML response
-- arhiving files
++ arhiving files
 
 ### System virtualisation
 - Docker
