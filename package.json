@@ -56,7 +56,7 @@
     "singleQuote": true,
     "semi": true,
     "trailingComma": "all",
-    "prettier.bracketSpacing": true,
+    "bracketSpacing": true,
     "arrowParens": "always"
   }
 }
