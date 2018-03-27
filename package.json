@@ -36,22 +36,36 @@
     "prettier": "^1.11.0"
   },
   "lint-staged": {
-    "*.{js,mjs}": ["prettier --parser babylon --write", "eslint"]
+    "*.{js,mjs}": [
+      "prettier --parser babylon --write",
+      "eslint"
+    ]
   },
   "pre-commit": "lint-staged",
   "eslintConfig": {
     "root": true,
-    "extends": ["prettier", "airbnb-base"],
+    "extends": [
+      "prettier",
+      "airbnb-base"
+    ],
     "env": {
       "node": true
     },
     "rules": {
       "space-before-function-paren": 0,
-      "arrow-parens": ["error", "always"],
-      "function-paren-newline": ["error", "consistent"]
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "function-paren-newline": [
+        "error",
+        "consistent"
+      ]
     }
   },
-  "eslintIgnore": ["./app/media"],
+  "eslintIgnore": [
+    "./app/media"
+  ],
   "prettier": {
     "singleQuote": true,
     "semi": true,
